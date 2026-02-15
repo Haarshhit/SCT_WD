@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WORKSHOP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #d4a574;
+            --dark: #2a2a2a;
+            --light: #f5f1ed;
+            --accent: #7c9a8b;
+            --text: #3a3a3a;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--light);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background: transparent;
+            backdrop-filter: blur(0px);
+        }
+
+        nav.scrolled {
+            background: rgba(245, 241, 237, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 1rem 3rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        nav.scrolled .nav-links a {
+            color: var(--dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f5f1ed 0%, #faf8f5 100%);
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212, 165, 116, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -200px;
+            right: -100px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(124, 154, 139, 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -100px;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 700px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #666;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            border-radius:10px ;
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--dark);
+            color: var(--light);
+            border: none;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover {
+            color: var(--dark);
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        /* Content Sections */
+        section {
+            padding: 6rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 3rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            padding: 2.5rem;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.4s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            border-left-color: var(--accent);
+        }
+
+        .feature-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        /* Dark Section */
+        .dark-section {
+            background: linear-gradient(135deg, var(--dark) 0%, #1f1f1f 100%);
+            color: var(--light);
+            margin-top: 4rem;
+            border-radius: 8px;
+        }
+
+        .dark-section .section-title {
+            color: var(--light);
+        }
+
+        .dark-section .section-title::after {
+            background: var(--accent);
+        }
+
+        .dark-section p {
+            color: #d0d0d0;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            nav.scrolled {
+                padding: 0.8rem 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .hero-content {
+                padding: 0 1rem;
+            }
+
+            .hero h1 {
+                font-size: clamp(2rem, 6vw, 3rem);
+            }
+
+            .cta-button {
+                padding: 0.85rem 2rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Scroll animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        footer {
+            background: var(--dark);
+            color: var(--light);
+            text-align: center;
+            padding: 3rem;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(212, 165, 116, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">WORKSHOP</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>WE welcome YOU</h1>
+            <p>We build digital experiences that connect, inspire, and move people forward.</p>
+            <button class="cta-button">Get Started</button>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work">
+        <h2 class="section-title reveal">Our Work</h2>
+        <div class="features">
+            <div class="feature-card reveal">
+                <h3>Responsive Design</h3>
+                <p>Beautiful interfaces that work seamlessly across all devices. We believe responsive design isn't just technical—it's about respecting how people actually use the web.</p>
+            </div>
+            <div class="feature-card reveal">
+                <h3>Interactive Menus</h3>
+                <p>Navigation that feels alive. Menus that respond to scrolling and interaction, creating a dynamic experience that keeps users engaged.</p>
+            </div>
+            <div class="feature-card reveal">
+                <h3>Performance First</h3>
+                <p>Fast, optimized code that loads instantly. We optimize every pixel and every millisecond to ensure your audience has the best experience.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="dark-section" id="about">
+        <h2 class="section-title reveal">What We Do</h2>
+        <p class="reveal">We're a small team of designers and developers who care deeply about craftsmanship. Every project is an opportunity to create something that matters—something that feels human, purposeful, and beautiful.</p>
+        <p class="reveal">Our approach is simple: listen first, design thoughtfully, and build with precision. We avoid trends that fade and instead focus on timeless principles that keep work relevant for years to come.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title reveal">Let's Work Together</h2>
+        <p class="reveal" style="font-size: 1.1rem; color: #666; max-width: 600px;">Have an idea? We'd love to hear about it. Let's create something amazing together.</p>
+        <button class="cta-button reveal" style="margin-top: 1.5rem;">Get In Touch</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p style="font-size: 0.9rem; letter-spacing: 0.5px;">ALL RIGHTS TO HARSHIT @2026</p>
+    </footer>
+
+    <script>
+        // Scroll navigation styling
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal animations on scroll
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Run on page load
+    </script>
+</body>
+</html>
